@@ -1,0 +1,10 @@
+.next
+.git
+.DS_Store
+
+Dockerfile
+.dockerignore
+docker-compose.dev
+docker-compose.prod
+
+node_modules

@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  dev:
+    image: threads-clone-dev 
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./app:/workspace/src/app
+      - ./components:/workspace/src/components
+      - ./constants:/workspace/src/constants
+      - ./public:/workspace/src/public
+      - ./lib:/workspace/src/lib
+    ports:
+      - "3000:3000"
+    profiles:
+       - dev
+  prod:
+    image: threads-clone-prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "3000:3000"
+    profiles:
+      - prod
