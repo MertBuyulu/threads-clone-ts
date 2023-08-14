@@ -6,15 +6,11 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
-      - ./app:/workspace/src/app
-      - ./components:/workspace/src/components
-      - ./constants:/workspace/src/constants
-      - ./public:/workspace/src/public
-      - ./lib:/workspace/src/lib
+      - .:/workspace/src/
+      - /workspace/src/node_modules
     ports:
       - "3000:3000"
-    profiles:
-       - dev
+    profiles: ["dev"]
   prod:
     image: threads-clone-prod
     build:
@@ -22,5 +18,4 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - "3000:3000"
-    profiles:
-      - prod
+    profiles: ["prod"]

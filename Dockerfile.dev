@@ -1,21 +1,18 @@
 # Base stage with Node.js
 FROM node:18-alpine AS base
+WORKDIR /workspace/src
 
 # Dependencies stage, installing required packages
 FROM base AS deps
-WORKDIR /workspace/src
-
 COPY package.json yarn.lock ./
+
 RUN yarn install
 
 # Development stage
 FROM base AS dev
-WORKDIR /workspace/src
 
 # Copy installed dependencies from the deps stage
 COPY --from=deps /workspace/src/node_modules ./node_modules
-# Copy necessary config files for development
-COPY . . 
 
 EXPOSE 3000
 CMD [ "yarn", "dev" ]
