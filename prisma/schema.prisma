@@ -9,3 +9,51 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id                 String       @id @default(cuid())
+  username           String       @unique
+  name               String
+  image              String?
+  bio                String?
+  onboarded          Boolean      @default(false)
+  threads            Thread[]
+  communities        Membership[]
+  createdCommunities Community[]  @relation("CommunityCreator")
+}
+
+model Thread {
+  id          String     @id @default(cuid())
+  text        String
+  author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String
+  community   Community? @relation(fields: [communityId], references: [id], onDelete: SetNull)
+  communityId String?
+  createdAt   DateTime   @default(now())
+  parentId    String?
+  children    Thread[]   @relation("ThreadToThreadChildren")
+  parent      Thread?    @relation("ThreadToThreadChildren", fields: [threadId], references: [id], onDelete: Cascade)
+  threadId    String?
+}
+
+model Community {
+  id        String       @id @default(cuid())
+  username  String       @unique
+  name      String
+  image     String?
+  bio       String?
+  createdBy User?        @relation("CommunityCreator", fields: [creatorId], references: [id], onDelete: SetNull)
+  creatorId String?
+  threads   Thread[]
+  members   Membership[]
+}
+
+// handle m-n relation between USER and COMMUNITY TABLES
+model Membership {
+  communityId String
+  userId      String
+  community   Community @relation(fields: [communityId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@id([communityId, userId])
+}
