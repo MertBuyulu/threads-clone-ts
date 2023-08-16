@@ -1,6 +1,7 @@
 export default function Home() {
   return (
-    
-         <div>HI DOCKER</div>
+    <main>
+        <h1>Threads</h1>
+    </main>
   )
 }
