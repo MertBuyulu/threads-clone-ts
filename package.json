@@ -6,9 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate:dev": "npx dotenv -e .env.local -- prisma migrate dev",
+    "db:push": "npx dotenv -e .env.local -- prisma db push",
+    "migrate:reset": "npx dotenv -e .env.local -- prisma migrate reset",
+    "db:seed": "npx dotenv -e .env.local -- prisma db seed",
+    "prisma:generate": "npx dotenv -e .env.local -- prisma generate",
+    "prisma:studio": "npx dotenv -e .env.local -- prisma studio",
+    "production:build": "npx prisma generate && npx prisma migrate deploy && next build"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.23.2",
     "@prisma/client": "5.1.1",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
@@ -24,5 +32,8 @@
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.6",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.2.1"
   }
 }
