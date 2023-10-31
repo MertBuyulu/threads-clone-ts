@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Onboarding = () => {
+const Onboarding = async () => {
   return (
-    <div>Onboarding</div>
+    <div className='head-text'>Onboarding</div>
   )
 }
 
