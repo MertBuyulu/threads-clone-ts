@@ -30,10 +30,10 @@ const TopBar = () => {
         <OrganizationSwitcher
           appearance={{
             elements: {
-              OrganizationSwitcherTrigger: "py-2 px4",
+              organizationSwitcherTrigger: "py-2 px-4",
             },
           }}
-        />
+          />
       </div>
     </nav>
   );
